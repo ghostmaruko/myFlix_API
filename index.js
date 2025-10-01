@@ -30,6 +30,7 @@ let allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234", //react dev server
   "https://movie-api-2025-9f90ce074c45.herokuapp.com", //heroku
+  "https://myflixplore.netlify.app" // Netlify frontend
 ];
 app.use(
   cors({
