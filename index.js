@@ -28,14 +28,14 @@ const { check, validationResult } = require("express-validator");
 const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:8080",
-  "http://localhost:1234", //react dev server
-  "https://movie-api-2025-9f90ce074c45.herokuapp.com", //heroku
-  "https://myflixplore.netlify.app" // Netlify frontend
+  "http://localhost:1234",
+  "https://movie-api-2025-9f90ce074c45.herokuapp.com",
+  "https://myflixplore.netlify.app"
 ];
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // permette richieste senza origin
+      if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
         let message = `The CORS policy for this application doesn't allow access from origin ${origin}.`;
         return callback(new Error(message), false);
@@ -48,47 +48,13 @@ app.use(
 // =================== MIDDLEWARE ===================
 app.use(express.json());
 app.use(passport.initialize());
-// Serve static files (css, js, img, html)
-app.use(express.static(path.join(__dirname, "public")));
 
 // =================== LOGIN / REGISTER ===================
 require("./auth")(app);
 
 // =================== ROUTES ===================
 
-// ===== 1. Registrazione nuovo utente (pubblica) =====
-/* app.post(
-  "/users",
-  [
-    check("Username", "Username is required").isLength({ min: 5 }),
-    check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
-
-    try {
-      const existingUser = await User.findOne({ Username: req.body.Username });
-      if (existingUser) return res.status(400).send(`${req.body.Username} already exists`);
-
-      const hashedPassword = await bcrypt.hash(req.body.Password, 10);
-
-      const newUser = await User.create({
-        Username: req.body.Username,
-        Password: hashedPassword,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday,
-      });
-
-      res.status(201).json(newUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    }
-  }
-); */
+// ===== 1. Registrazione nuovo utente =====
 app.post(
   "/users",
   [
@@ -127,7 +93,7 @@ app.post(
   }
 );
 
-// ===== 2. Ottieni tutti i film (PUBBLICA per task) =====
+// ===== 2. Ottieni tutti i film (pubblica per il progetto) =====
 app.get("/movies", async (req, res) => {
   try {
     const movies = await Movie.find();
@@ -182,32 +148,7 @@ app.get(
   }
 );
 
-// ===== 6. Aggiorna utente (protetto + verifica identità) =====
-/* app.put(
-  "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    if (req.user.Username !== req.params.Username) {
-      return res.status(400).send("Permission denied");
-    }
-
-    try {
-      if (req.body.Password) {
-        req.body.Password = await bcrypt.hash(req.body.Password, 10);
-      }
-
-      const updatedUser = await User.findOneAndUpdate(
-        { Username: req.params.Username },
-        { $set: req.body },
-        { new: true }
-      );
-      if (!updatedUser) return res.status(404).send("User not found");
-      res.json(updatedUser);
-    } catch (err) {
-      res.status(500).send("Error: " + err);
-    }
-  }
-); */
+// ===== 6. Aggiorna utente =====
 app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -235,7 +176,7 @@ app.put(
   }
 );
 
-// ===== 7. Aggiungi film ai preferiti (protetto + verifica) =====
+// ===== 7. Aggiungi film ai preferiti =====
 app.post(
   "/users/:username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -244,7 +185,6 @@ app.post(
       return res.status(400).send("Permission denied");
 
     try {
-      // Aggiorno l'array favoriteMovies come stringa
       const updatedUser = await User.findOneAndUpdate(
         { username: req.params.username },
         { $addToSet: { favoriteMovies: req.params.MovieID } },
@@ -259,7 +199,7 @@ app.post(
   }
 );
 
-// ===== 8. Rimuovi film dai preferiti (protetto + verifica) =====
+// ===== 8. Rimuovi film dai preferiti =====
 app.delete(
   "/users/:username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -282,8 +222,7 @@ app.delete(
   }
 );
 
-// ===== 9. Cancella utente (protetto + verifica) =====
-
+// ===== 9. Cancella utente =====
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -305,19 +244,7 @@ app.delete(
   }
 );
 
-// ===== 10. Leggi tutti gli utenti (protetto) =====
-/* app.get(
-  "/users",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    try {
-      const users = await User.find();
-      res.json(users);
-    } catch (err) {
-      res.status(500).send("Error: " + err);
-    }
-  }
-); */
+// ===== 10. Leggi tutti gli utenti =====
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -331,23 +258,7 @@ app.get(
   }
 );
 
-// ===== 11. Leggi utente specifico (protetto + verifica) =====
-/* app.get(
-  "/users/:Username",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    if (req.user.Username !== req.params.Username)
-      return res.status(400).send("Permission denied");
-
-    try {
-      const user = await User.findOne({ Username: req.params.Username });
-      if (!user) return res.status(404).send("User not found");
-      res.json(user);
-    } catch (err) {
-      res.status(500).send("Error: " + err);
-    }
-  }
-); */
+// ===== 11. Leggi utente specifico =====
 app.get(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -365,22 +276,19 @@ app.get(
   }
 );
 
-// ===== 12. Pagine statiche =====
+// ===== 12. Root API message (NO STATIC FILES) =====
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-app.get("/movies-list", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "movies.html"));
+  res.json({ message: "myFlix API is running" });
 });
 
 // ===== ERROR HANDLER =====
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+  res.status(500).send("Something broke!");
 });
 
-// =================== SERVER ===================
+// =================== LISTENER ===================
 const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on Port " + port);
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}`);
 });
