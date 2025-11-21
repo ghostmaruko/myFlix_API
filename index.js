@@ -15,6 +15,12 @@ console.log("CONNECTION_URI =", process.env.CONNECTION_URI);
 // =================== APP ===================
 const app = express();
 
+const path = require("path");
+
+// Serve immagini dalla cartella public/img
+app.use("/img", express.static(path.join(__dirname, "public/img")));
+
+
 // =================== DATABASE ===================
 mongoose
   .connect(process.env.CONNECTION_URI)
