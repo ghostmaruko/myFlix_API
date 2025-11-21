@@ -32,6 +32,7 @@ const allowedOrigins = [
   "https://myflixplore.netlify.app",
   "https://my-flix-client-hob19ly7a-ghostmarukos-projects.vercel.app",
   "https://myflix-api-0vxe.onrender.com",
+  "https://my-flix-client-tau.vercel.app"
 ];
 
 app.use(
