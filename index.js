@@ -20,7 +20,6 @@ const path = require("path");
 // Serve immagini dalla cartella public/img
 app.use("/img", express.static(path.join(__dirname, "public/img")));
 
-
 // =================== DATABASE ===================
 mongoose
   .connect(process.env.CONNECTION_URI)
@@ -38,7 +37,7 @@ const allowedOrigins = [
   "https://myflixplore.netlify.app",
   "https://my-flix-client-hob19ly7a-ghostmarukos-projects.vercel.app",
   "https://myflix-api-0vxe.onrender.com",
-  "https://my-flix-client-tau.vercel.app"
+  "https://my-flix-client-tau.vercel.app",
 ];
 
 app.use(
@@ -47,7 +46,10 @@ app.use(
       if (!origin) return callback(null, true); // richieste Postman / server-side
       if (allowedOrigins.indexOf(origin) === -1) {
         console.warn(`Blocked CORS for origin: ${origin}`);
-        return callback(new Error(`CORS policy blocks access from ${origin}`), false);
+        return callback(
+          new Error(`CORS policy blocks access from ${origin}`),
+          false
+        );
       }
       return callback(null, true);
     },
@@ -75,11 +77,13 @@ app.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+    if (!errors.isEmpty())
+      return res.status(422).json({ errors: errors.array() });
 
     try {
       const existingUser = await User.findOne({ username: req.body.username });
-      if (existingUser) return res.status(400).send(`${req.body.username} already exists`);
+      if (existingUser)
+        return res.status(400).send(`${req.body.username} already exists`);
 
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -98,11 +102,28 @@ app.post(
   }
 );
 
-// --- Ottieni tutti i film (PUBBLICA) ---
+/* // --- Ottieni tutti i film (PUBBLICA) ---
 app.get("/movies", async (req, res) => {
   try {
     const movies = await Movie.find();
     res.json(movies);
+  } catch (err) {
+    res.status(500).send("Error: " + err);
+  }
+}); */
+
+// --- Ottieni tutti i film (PUBBLICA) con imageURL corretto ---
+app.get("/movies", async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    const updatedMovies = movies.map((movie) => {
+      const m = movie.toObject(); // converte Mongoose doc in JS object
+      if (m.imageURL && !m.imageURL.startsWith("http")) {
+        m.imageURL = `https://myflix-api-0vxe.onrender.com/img/${m.imageURL}`;
+      }
+      return m;
+    });
+    res.json(updatedMovies);
   } catch (err) {
     res.status(500).send("Error: " + err);
   }
