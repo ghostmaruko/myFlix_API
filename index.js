@@ -2,7 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const passport = require("passport"); // correggo import
+const passport = require("passport"); // import corretto
 const Models = require("./moongose/model.js");
 const cors = require("cors");
 require("dotenv").config();
@@ -28,24 +28,16 @@ const { check, validationResult } = require("express-validator");
 const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
-<<<<<<< HEAD
   "https://movie-api-2025-9f90ce074c45.herokuapp.com",
-  "https://myflixplore.netlify.app"
-=======
-  "https://my-flix-client-hob19ly7a-ghostmarukos-projects.vercel.app",
   "https://myflixplore.netlify.app",
-  "https://myflix-api-0vxe.onrender.com", // aggiunta
->>>>>>> 8e70f67 (fix cors problem)
+  "https://my-flix-client-hob19ly7a-ghostmarukos-projects.vercel.app",
+  "https://myflix-api-0vxe.onrender.com",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-<<<<<<< HEAD
-      if (!origin) return callback(null, true);
-=======
       if (!origin) return callback(null, true); // richieste Postman / server-side
->>>>>>> 8e70f67 (fix cors problem)
       if (allowedOrigins.indexOf(origin) === -1) {
         console.warn(`Blocked CORS for origin: ${origin}`);
         return callback(new Error(`CORS policy blocks access from ${origin}`), false);
@@ -64,29 +56,12 @@ app.use(passport.initialize());
 require("./auth")(app);
 
 // =================== ROUTES ===================
-<<<<<<< HEAD
 
-// ===== 1. Registrazione nuovo utente =====
-=======
 // --- Registrazione nuovo utente ---
->>>>>>> 8e70f67 (fix cors problem)
 app.post(
   "/users",
   [
     check("username", "Username is required").isLength({ min: 5 }),
-<<<<<<< HEAD
-    check(
-      "username",
-      "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("password", "Password is required").not().isEmpty(),
-    check("email", "Email does not appear to be valid").isEmail(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(422).json({ errors: errors.array() });
-=======
     check("username", "Username must be alphanumeric").isAlphanumeric(),
     check("password", "Password is required").not().isEmpty(),
     check("email", "Email is not valid").isEmail(),
@@ -94,7 +69,6 @@ app.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
->>>>>>> 8e70f67 (fix cors problem)
 
     try {
       const existingUser = await User.findOne({ username: req.body.username });
@@ -117,11 +91,7 @@ app.post(
   }
 );
 
-<<<<<<< HEAD
-// ===== 2. Ottieni tutti i film (pubblica per il progetto) =====
-=======
 // --- Ottieni tutti i film (PUBBLICA) ---
->>>>>>> 8e70f67 (fix cors problem)
 app.get("/movies", async (req, res) => {
   try {
     const movies = await Movie.find();
@@ -175,8 +145,7 @@ app.get(
   }
 );
 
-<<<<<<< HEAD
-// ===== 6. Aggiorna utente =====
+// --- Aggiorna utente ---
 app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -204,7 +173,7 @@ app.put(
   }
 );
 
-// ===== 7. Aggiungi film ai preferiti =====
+// --- Aggiungi film ai preferiti ---
 app.post(
   "/users/:username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -227,7 +196,7 @@ app.post(
   }
 );
 
-// ===== 8. Rimuovi film dai preferiti =====
+// --- Rimuovi film dai preferiti ---
 app.delete(
   "/users/:username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -250,7 +219,7 @@ app.delete(
   }
 );
 
-// ===== 9. Cancella utente =====
+// --- Cancella utente ---
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -272,7 +241,7 @@ app.delete(
   }
 );
 
-// ===== 10. Leggi tutti gli utenti =====
+// --- Leggi tutti gli utenti ---
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -286,7 +255,7 @@ app.get(
   }
 );
 
-// ===== 11. Leggi utente specifico =====
+// --- Leggi utente specifico ---
 app.get(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -304,21 +273,18 @@ app.get(
   }
 );
 
-// ===== 12. Root API message (NO STATIC FILES) =====
+// --- Root API message ---
 app.get("/", (req, res) => {
   res.json({ message: "myFlix API is running" });
 });
 
-// ===== ERROR HANDLER =====
-=======
 // =================== ERROR HANDLER ===================
->>>>>>> 8e70f67 (fix cors problem)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 
-// =================== LISTENER ===================
+// =================== SERVER ===================
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
