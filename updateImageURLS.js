@@ -1,4 +1,45 @@
-const fs = require("fs");
+// updateImageURLs.js
+const mongoose = require("mongoose");
+require("dotenv").config();
+const Models = require("./moongose/model.js");
+const Movie = Models.Movie;
+
+// nuovo dominio (Render)
+const BASE_URL = "https://myflix-api-0vxe.onrender.com/img/";
+
+async function updateImageURLs() {
+  try {
+    await mongoose.connect(process.env.CONNECTION_URI);
+    console.log("Connected to MongoDB");
+
+    const movies = await Movie.find();
+
+    for (const movie of movies) {
+      if (!movie.imageURL) continue;
+
+      // prendiamo solo il nome del file (es. star_wars.jpg)
+      const filename = movie.imageURL.split("/").pop();
+
+      // aggiorniamo l'URL
+      movie.imageURL = BASE_URL + filename;
+
+      await movie.save();
+
+      console.log(`Updated: ${movie.title} → ${movie.imageURL}`);
+    }
+
+    console.log("All imageURLs updated!");
+    await mongoose.disconnect();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+updateImageURLs();
+
+//######################################################################//
+
+/* const fs = require("fs");
 const path = require("path");
 
 // Percorso del file JSON dei film
@@ -26,3 +67,4 @@ fs.writeFileSync(
 );
 
 console.log("imageURL aggiornati con successo!");
+ */
