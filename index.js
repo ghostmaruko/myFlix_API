@@ -33,6 +33,7 @@ const { check, validationResult } = require("express-validator");
 const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
+  "http://localhost:4200",
   "https://movie-api-2025-9f90ce074c45.herokuapp.com",
   "https://myflixplore.netlify.app",
   "https://my-flix-client-hob19ly7a-ghostmarukos-projects.vercel.app",
@@ -53,7 +54,7 @@ app.use(
       }
       return callback(null, true);
     },
-    credentials: true, // permette cookie/session
+    credentials: true,
   })
 );
 
