@@ -41,7 +41,7 @@ const allowedOrigins = [
   "https://my-flix-client-tau.vercel.app",
 ];
 
-/* app.use(
+app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true); // richieste Postman / server-side
@@ -56,13 +56,13 @@ const allowedOrigins = [
     },
     credentials: true,
   })
-); */
+);
 
-// test locale
+/* // test locale
 app.use(cors({
   origin: "*",
   credentials: true
-}));
+})); */
 
 
 // =================== MIDDLEWARE ===================
