@@ -1,0 +1,17 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": ["index.js", "moongose/model.js", "auth.js"],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(node_modules|docs)"
+  },
+  "opts": {
+    "destination": "./docs",
+    "recurse": true,
+    "template": "default",
+    "encoding": "utf8"
+  },
+  "plugins": []
+}

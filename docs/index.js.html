@@ -1,4 +1,32 @@
-// =================== IMPORTS ===================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// =================== IMPORTS ===================
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
@@ -9,9 +37,9 @@ require("dotenv").config();
 
 const Movie = Models.Movie;
 const User = Models.User;
-
-const { check, validationResult } = require("express-validator");
 const path = require("path");
+
+console.log("CONNECTION_URI =", process.env.CONNECTION_URI);
 
 // =================== APP ===================
 const app = express();
@@ -24,6 +52,9 @@ mongoose
   .connect(process.env.CONNECTION_URI)
   .then(() => console.log("MongoDB connected successfully!"))
   .catch((err) => console.error("MongoDB connection error:", err));
+
+// =================== VALIDATION ===================
+const { check, validationResult } = require("express-validator");
 
 // =================== CORS ===================
 const allowedOrigins = [
@@ -58,44 +89,39 @@ app.use(
 app.use(express.json());
 app.use(passport.initialize());
 
-// =================== AUTH ===================
+// =================== TYPES ===================
+
+/**
+ * @typedef Movie
+ * @property {string} _id
+ * @property {string} Title
+ * @property {string} Description
+ * @property {string} Director
+ * @property {string} Genre
+ * @property {string} imageURL
+ */
+
+/**
+ * @typedef User
+ * @property {string} _id
+ * @property {string} username
+ * @property {string} email
+ * @property {string} birthday
+ * @property {Array&lt;string>} favoriteMovies
+ */
+
+// =================== LOGIN / REGISTER ===================
 require("./auth")(app);
-
-// =================== TYPEDEFS ===================
-/**
- * @typedef {Object} Movie
- * @property {string} _id - ID del film
- * @property {string} title - Titolo del film
- * @property {string} description - Descrizione del film
- * @property {Object} director - Info sul regista
- * @property {string} director.name - Nome regista
- * @property {string} director.bio - Bio regista
- * @property {Object} genre - Info sul genere
- * @property {string} genre.name - Nome genere
- * @property {string} genre.description - Descrizione genere
- * @property {string} imageURL - URL immagine
- */
-
-/**
- * @typedef {Object} User
- * @property {string} _id - ID utente
- * @property {string} username - Nome utente
- * @property {string} email - Email utente
- * @property {string} birthday - Data di nascita
- * @property {Array<string>} favoriteMovies - Lista film preferiti
- */
-
-// =================== ROUTES ===================
 
 /**
  * @route POST /users
- * @group Users - Operations about users
+ * @group Users - Operations about user
  * @summary Register a new user
- * @param {string} username.body.required - Username
- * @param {string} password.body.required - Password
- * @param {string} email.body.required - Email
- * @param {string} [birthday.body] - Data di nascita
- * @returns {User.model} 201 - User created
+ * @param {string} username.body.required
+ * @param {string} password.body.required
+ * @param {string} email.body.required
+ * @param {string} birthday.body
+ * @returns {User.model} 201 - Created user object
  * @returns {Error} 400 - Username already exists
  * @returns {Error} 422 - Validation errors
  * @returns {Error} 500 - Unexpected error
@@ -137,9 +163,9 @@ app.post(
 
 /**
  * @route GET /movies
- * @group Movies - Operations about movies
+ * @group Movies
  * @summary Get all movies
- * @returns {Array<Movie>} 200 - List of all movies
+ * @returns {Array&lt;Movie>} 200 - List of all movies
  * @returns {Error} 500 - Unexpected error
  */
 app.get("/movies", async (req, res) => {
@@ -147,7 +173,7 @@ app.get("/movies", async (req, res) => {
     const movies = await Movie.find();
     const updatedMovies = movies.map((movie) => {
       const m = movie.toObject();
-      if (m.imageURL && !m.imageURL.startsWith("http")) {
+      if (m.imageURL &amp;&amp; !m.imageURL.startsWith("http")) {
         m.imageURL = `https://myflix-api-0vxe.onrender.com/img/${m.imageURL}`;
       }
       return m;
@@ -160,8 +186,8 @@ app.get("/movies", async (req, res) => {
 
 /**
  * @route GET /movies/{title}
- * @group Movies - Operations about movies
- * @param {string} title.path.required - Movie title
+ * @group Movies
+ * @param {string} title.path.required
  * @returns {Movie.model} 200 - Movie object
  * @returns {Error} 404 - Movie not found
  * @returns {Error} 500 - Unexpected error
@@ -182,8 +208,8 @@ app.get(
 
 /**
  * @route GET /genres/{name}
- * @group Genres - Operations about genres
- * @param {string} name.path.required - Genre name
+ * @group Genres
+ * @param {string} name.path.required
  * @returns {Object} 200 - Genre object
  * @returns {Error} 404 - Genre not found
  * @returns {Error} 500 - Unexpected error
@@ -204,8 +230,8 @@ app.get(
 
 /**
  * @route GET /directors/{name}
- * @group Directors - Operations about directors
- * @param {string} name.path.required - Director name
+ * @group Directors
+ * @param {string} name.path.required
  * @returns {Object} 200 - Director object
  * @returns {Error} 404 - Director not found
  * @returns {Error} 500 - Unexpected error
@@ -226,8 +252,8 @@ app.get(
 
 /**
  * @route GET /users
- * @group Users - Operations about users
- * @returns {Array<User>} 200 - List of users
+ * @group Users
+ * @returns {Array&lt;User>} 200 - List of users
  * @returns {Error} 500 - Unexpected error
  */
 app.get(
@@ -245,8 +271,8 @@ app.get(
 
 /**
  * @route GET /users/{username}
- * @group Users - Operations about users
- * @param {string} username.path.required - Username
+ * @group Users
+ * @param {string} username.path.required
  * @returns {User.model} 200 - User object
  * @returns {Error} 400 - Permission denied
  * @returns {Error} 404 - User not found
@@ -271,9 +297,9 @@ app.get(
 
 /**
  * @route PUT /users/{username}
- * @group Users - Operations about users
- * @param {string} username.path.required - Username
- * @param {User.model} user.body.required - User data to update
+ * @group Users
+ * @param {string} username.path.required
+ * @param {User.model} user.body.required
  * @returns {User.model} 200 - Updated user
  * @returns {Error} 400 - Permission denied
  * @returns {Error} 404 - User not found
@@ -283,8 +309,9 @@ app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    if (req.user.username !== req.params.username)
+    if (req.user.username !== req.params.username) {
       return res.status(400).send("Permission denied");
+    }
 
     try {
       if (req.body.password) {
@@ -307,10 +334,10 @@ app.put(
 
 /**
  * @route POST /users/{username}/movies/{MovieID}
- * @group Users - Favorite Movies
- * @param {string} username.path.required - Username
- * @param {string} MovieID.path.required - Movie ID
- * @returns {User.model} 200 - Updated user with new favorite
+ * @group Users - Favorites
+ * @param {string} username.path.required
+ * @param {string} MovieID.path.required
+ * @returns {User.model} 200 - Updated user with favorite added
  * @returns {Error} 400 - Permission denied
  * @returns {Error} 404 - User not found
  * @returns {Error} 500 - Unexpected error
@@ -338,10 +365,10 @@ app.post(
 
 /**
  * @route DELETE /users/{username}/movies/{MovieID}
- * @group Users - Favorite Movies
- * @param {string} username.path.required - Username
- * @param {string} MovieID.path.required - Movie ID
- * @returns {User.model} 200 - Updated user with movie removed
+ * @group Users - Favorites
+ * @param {string} username.path.required
+ * @param {string} MovieID.path.required
+ * @returns {User.model} 200 - Updated user with favorite removed
  * @returns {Error} 400 - Permission denied
  * @returns {Error} 404 - User not found
  * @returns {Error} 500 - Unexpected error
@@ -369,9 +396,9 @@ app.delete(
 
 /**
  * @route DELETE /users/{username}
- * @group Users - Operations about users
- * @param {string} username.path.required - Username
- * @returns {string} 200 - Deletion message
+ * @group Users
+ * @param {string} username.path.required
+ * @returns {string} 200 - Deletion confirmation
  * @returns {Error} 400 - Permission denied
  * @returns {Error} 404 - User not found
  * @returns {Error} 500 - Unexpected error
@@ -397,12 +424,7 @@ app.delete(
   }
 );
 
-// =================== ROOT ===================
-/**
- * @route GET /
- * @group Root
- * @returns {Object} 200 - API status message
- */
+// --- Root API message ---
 app.get("/", (req, res) => {
   res.json({ message: "myFlix API is running" });
 });
@@ -418,3 +440,26 @@ const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`App is listening on port ${port}`);
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Dec 01 2025 17:00:47 GMT+0100 (Ora standard dell’Europa centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
