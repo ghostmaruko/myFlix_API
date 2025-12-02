@@ -1,6 +1,62 @@
 ## Movie API Project
 
-A complete REST API built with Node.js, Express, and MongoDB that allows users to manage movie information, user accounts, and favorite movies. Includes a minimal frontend interface to display the movies in a responsive gallery with popup details.
+A RESTful API built with Node.js, Express, and MongoDB for managing movies, users, and authentication.
+This API serves as the backend for the myFlix web application, supporting both Angular and React clients.
+
+---
+
+## Project Context (Achievement 2 – CareerFoundry)
+
+This project is part of Achievement 2 of the CareerFoundry Full-Stack Web Development Program.
+The main objective is to build the server-side component of a movies web application, providing:
+
+- Access to information about movies, directors, and genres
+- User registration and profile management
+- Favorite movies list management
+- By completing this project, you demonstrate your ability to create and manage REST APIs, implement authentication/authorization, secure data, and build a backend architecture ready to integrate with a frontend application.
+
+Target users:
+
+- Frontend developers (for the client-side integration)
+- Movie enthusiasts who want easy access to movie information
+
+---
+
+### Essential Features Implemented
+
+- Return a list of all movies
+- Return detailed data for a single movie (title, description, genre, director, image URL, featured flag)
+- Return data about genres and directors
+- User registration, login, profile update, and deregistration
+- Add/remove movies from a user's favorites
+- Secure password storage with bcrypt
+- JWT token-based authentication
+- Data validation and error-free operations
+
+Optional / Bonus Features:
+- Viewing actors for each movie
+- Viewing release dates and ratings
+- “To Watch” list in addition to favorites
+
+---
+
+### Technologies Used
+
+- Node.js & Express
+- MongoDB & Mongoos
+- JWT for authenticatio
+- Bcrypt for password hashin
+- CORS for cross-origin request
+- TypeDoc for automatic API doumentation
+- Postman for testing endpoints
+
+---
+
+### Authentication
+
+- JWT tokens are issued upon login or registration
+- Frontend clients use tokens to make authenticated requests
+- Tokens and username can be stored in localStorage on the client side
 
 ---
 
@@ -13,39 +69,36 @@ A complete REST API built with Node.js, Express, and MongoDB that allows users t
 
 ### Backend Endpoints (JWT required for most requests)
 
+Base URL: `https://myflix-api-0vxe.onrender.com`
+
 - `POST /users` — Register a new user (no token required)  
-  `https://movie-api-2025-9f90ce074c45.herokuapp.com/users`
+  Example: `https://myflix-api-0vxe.onrender.com/users`
 
 - `POST /login` — Login to get JWT token  
-  `https://movie-api-2025-9f90ce074c45.herokuapp.com/login`
+  Example: `https://myflix-api-0vxe.onrender.com/login`
 
-- `GET /movies` — List all movies (**temporarily public**)  
-   `https://movie-api-2025-9f90ce074c45.herokuapp.com/movies`
-   This endpoint has temporarily been made public to allow unauthenticated access from the React frontend during development.  
-  It will be re-protected with JWT in the production version.
+- `GET /movies` — List all movies (**temporarily public for frontend development**)  
+  Example: `https://myflix-api-0vxe.onrender.com/movies`  
+  (This endpoint is temporarily public; in production it will require JWT.)
 
 - `GET /movies/:title` — Get movie by title (requires JWT)  
-  `https://movie-api-2025-9f90ce074c45.herokuapp.com/movies/Inception`
+  Example: `https://myflix-api-0vxe.onrender.com/movies/Inception`
 
 - `GET /genres/:name` — Get genre info (requires JWT)  
-  `https://movie-api-2025-9f90ce074c45.herokuapp.com/genres/Action`
+  Example: `https://myflix-api-0vxe.onrender.com/genres/Action`
 
 - `GET /directors/:name` — Get director info (requires JWT)  
-  `https://movie-api-2025-9f90ce074c45.herokuapp.com/directors/Christopher%20Nolan`
+  Example: `https://myflix-api-0vxe.onrender.com/directors/Christopher%20Nolan`
 
-- `POST /users/:username/movies/:movieID` — Add movie to favorites (requires JWT)
-
-- `DELETE /users/:username/movies/:movieID` — Remove movie from favorites (requires JWT)
-
-- `PUT /users/:username` — Update user info (requires JWT)
-
-- `DELETE /users/:username` — Delete user (requires JWT)
+- `POST /users/:username/movies/:movieID` — Add movie to favorites (requires JWT)  
+- `DELETE /users/:username/movies/:movieID` — Remove movie from favorites (requires JWT)  
+- `PUT /users/:username` — Update user info (requires JWT)  
+- `DELETE /users/:username` — Delete user (requires JWT)  
 
 **Authentication:** All routes (except `POST /users` and `POST /login`) require JWT authentication.  
 **Authorization:** Passport.js with Local and JWT strategies.  
-**Passwords** are hashed using bcrypt.  
-All endpoints tested in Postman.
-
+**Passwords:** Hashed using bcrypt.  
+**Testing:** All endpoints tested with Postman.
 ---
 
 ## Frontend
@@ -87,20 +140,17 @@ movie_api/
 
 ## Endpoint Method Notes
 
-    /users	                                    POST	                Register a new user
-    /login	                                    POST	                Login to get JWT
+    /users	                                    POST	                  Register a new user
+    /login	                                    POST	                  Login to get JWT
     /movies	                                    GET	                    Returns all movies (requires JWT)
     /movies/:title	                            GET	                    Returns a movie by title (requires JWT)
-    /users/:username/movies/:movieID	        POST / DELETE	        Add/remove favorites (requires JWT)
+    /users/:username/movies/:movieID	          POST / DELETE	          Add/remove favorites (requires JWT)
 
 ## Testing steps:
 
 Register a user via POST /users.
-
 Login via POST /login to receive a JWT token.
-
 In Postman, set Authorization → Bearer Token with the received JWT.
-
 Test protected endpoints like /users, /movies, /users/:username/movies/:movieID.
 
 ---
@@ -147,6 +197,16 @@ Full Postman collection is included in postman_req/ for direct import.
 - Images served statically with path normalization
 - Postman collection and screenshots included for API testing
 - Documentation updated with full endpoint details and example requests/responses
+
+---
+
+## 🚀 Deployment
+
+The API is deployed on **Render** and publicly accessible at:
+
+- [https://myflix-api-0vxe.onrender.com](https://myflix-api-0vxe.onrender.com)
+
+For local development, follow the installation steps above.
 
 ---
 

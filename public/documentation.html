@@ -36,18 +36,23 @@
   </head>
   <body>
     <h1>MyFlix API Documentation</h1>
+    <p>
+      All endpoints tested with Postman. JWT authentication required for most
+      requests.
+    </p>
 
     <div class="endpoint">
       <h2>GET /movies</h2>
-      <p class="auth">Authentication: Bearer JWT required</p>
+      <p class="auth">
+        Authentication: Bearer JWT required (temporarily public)
+      </p>
       <p>Returns a list of all movies in the database.</p>
       <pre>
 Request Body: none
 Response: JSON array of movie objects
 Status Codes: 200 OK
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/movies
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/movies
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -59,8 +64,7 @@ Example URL: /movies/Inception
 Request Body: none
 Response: JSON object of the movie
 Status Codes: 200 OK, 404 Not Found
-    </pre
-      >
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -72,8 +76,7 @@ Example URL: /genres/Action
 Request Body: none
 Response: JSON object with genre details
 Status Codes: 200 OK, 404 Not Found
-    </pre
-      >
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -81,12 +84,11 @@ Status Codes: 200 OK, 404 Not Found
       <p class="auth">Authentication: Bearer JWT required</p>
       <p>Returns information about a specific director.</p>
       <pre>
-Example URL: /directors/Christopher Nolan
+Example URL: /directors/Christopher%20Nolan
 Request Body: none
 Response: JSON object with director details
 Status Codes: 200 OK, 404 Not Found
-    </pre
-      >
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -103,9 +105,8 @@ Request Body:
 }
 Response: JSON object of created user
 Status Codes: 201 Created, 422 Validation Error
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/users
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -124,9 +125,8 @@ Response:
   "token": "JWT_TOKEN_HERE"
 }
 Status Codes: 200 OK, 400 Incorrect username or password
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/login
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/login
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -137,9 +137,8 @@ Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/login
 Request Body: none
 Response: JSON object of updated user
 Status Codes: 200 OK, 404 Movie not found
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/mariobianchi/movies/68b71bf86d16a1626e8cf305
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/users/mariobianchi/movies/68b71bf86d16a1626e8cf305
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -150,9 +149,8 @@ Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/mariobianch
 Request Body: none
 Response: JSON object of updated user
 Status Codes: 200 OK, 404 Movie not found
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/mariobianchi/movies/68b71bf86d16a1626e8cf305
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/users/mariobianchi/movies/68b71bf86d16a1626e8cf305
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -169,9 +167,8 @@ Request Body:
 }
 Response: JSON object of updated user
 Status Codes: 200 OK, 400 Validation Error
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/mariobianchi
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/users/mariobianchi
+      </pre>
     </div>
 
     <div class="endpoint">
@@ -182,9 +179,8 @@ Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/mariobianch
 Request Body: none
 Response: "Username was deleted."
 Status Codes: 200 OK, 400 Permission denied, 404 User not found
-Example URL: https://movie-api-2025-9f90ce074c45.herokuapp.com/users/testdelete
-    </pre
-      >
+Example URL: https://myflix-api-0vxe.onrender.com/users/testdelete
+      </pre>
     </div>
   </body>
 </html>
