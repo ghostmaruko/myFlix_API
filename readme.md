@@ -115,20 +115,12 @@ To test the backend manually, use Postman with a valid JWT token.
 
 ## Project Structure
 
-movie_api/
-├── index.js
-├── package.json
-├── moongose/
-│ └── model.js
-├── public/
-│ ├── index.html
-│ ├── movies.html
-│ ├── documentation.html
-│ ├── style.css
-│ └── img/ (movie posters)
-├── movie_api_postman_collection.json
-├── log.txt
-└── screenshots/ (Postman test results)
+- index.js – main entry point, server setup, route registration, middleware, and TypeDoc integration
+- models/ – Mongoose models for Movies and Users
+- routes/ – Express routes for API endpoints
+- controllers/ – business logic for each route
+- docs/ – TypeDoc generated documentation
+- package.json – project dependencies and scripts
 
 ---
 
