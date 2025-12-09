@@ -65,7 +65,7 @@ Target users:
 
 https://myflix-api-0vxe.onrender.com
 
-> [!NOTE]
+> [!IMPORTANT]
 >
 > Visiting this URL does not display a webpage — it's an API only
 
@@ -94,29 +94,32 @@ Most endpoints require a valid JWT token.
 
 ### Authentication
 
-Method | Endpoint | Notes
-POST | /users | Register (public)
-POST | /login | Login & receive JWT (public)
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/users` | ❌ | Register new user |
+| POST | `/login` | ❌ | Login and receive JWT token |
 
 ---
 
 ### Movies
 
-Method Endpoint Auth Description
-GET /movies ❌ (temporary) Get all movies
-GET /movies/:title ✅ Get movie by title
-GET /genres/:name ✅ Get genre info
-GET /directors/:name ✅ Get director info
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| GET | `/movies` | ❌ (temporary) | Get all movies |
+| GET | `/movies/:title` | ✅ | Get movie details by title |
+| GET | `/genres/:name` | ✅ | Get genre information |
+| GET | `/directors/:name` | ✅ | Get director information |
 
 ---
 
 ### Users
 
-Method | Endpoint | Auth | Description
-POST | /users/:username/movies/:movieID | ✅ Add favorite
-DELETE /users/:username/movies/:movieID ✅ Remove favorite
-PUT /users/:username ✅ Update user
-DELETE /users/:username ✅ Delete user
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| PUT | `/users/:username` | ✅ | Update user profile |
+| DELETE | `/users/:username` | ✅ | Delete user |
+| POST | `/users/:username/movies/:movieID` | ✅ | Add favorite movie |
+| DELETE | `/users/:username/movies/:movieID` | ✅ | Remove favorite movie |
 
 ---
 
@@ -148,12 +151,15 @@ To test the backend manually, use Postman with a valid JWT token.
 
 ## Project Structure
 
-- index.js – main entry point, server setup, route registration, middleware, and TypeDoc integration
-- models/ – Mongoose models for Movies and Users
-- routes/ – Express routes for API endpoints
-- controllers/ – business logic for each route
-- docs/ – TypeDoc generated documentation
-- package.json – project dependencies and scripts
+| Path | Description |
+|---|---|
+| `index.js` | Main server file (Express setup, middleware, routes, DB connection) |
+| `/models` | Mongoose schemas for movies and users |
+| `/routes` | API route definitions |
+| `/controllers` | Logic for API endpoints |
+| `/public` | Static file serving |
+| `/docs` | Generated JSDoc documentation |
+| `package.json` | Dependencies & scripts |
 
 ---
 
@@ -165,25 +171,33 @@ To test the backend manually, use Postman with a valid JWT token.
 
 ## Testing Instruction (Postman):
 
-1. Register a user via POST /users.
-2. Login via POST /login to receive a JWT token.
-3. In Postman, set Authorization → Bearer Token with the received JWT.
-4. TUse the token to test protected routes like:
-   - /movies/:title
-   - /users/:username
-   - /users/:username/movies/:movieID
+All protected endpoints require a **JWT token**.
 
-All requests have been fully tested with Postman.
+### Steps:
+1. **Register a new user**  
+   POST `/users`
+2. **Login**  
+   POST `/login` → receive a JWT token
+3. In Postman → Authorization → **Bearer Token**  
+   Paste the token
+4. Test protected endpoints like:
+   - GET `/movies/:title`
+   - PUT `/users/:username`
+   - POST `/users/:username/movies/:movieID`
 
 ---
 
 ## Deployment
 
-✅ MongoDB Atlas connected via Mongoose  
-✅ Environment variables used (`CONNECTION_URI`, `PORT`)  
-✅ App deployed to Heroku  
-✅ CORS enabled for all origins  
-✅ All endpoints fully tested and verified
+| Feature | Status |
+|---|---|
+| MongoDB Atlas | ✅ Connected |
+| Render Deployment | ✅ Live |
+| JWT Authentication | ✅ Functional |
+| Password Hashing | ✅ bcrypt |
+| Data Validation | ✅ express-validator |
+| Static file serving | ✅ Enabled |
+| Postman Testing | ✅ Completed |
 
 ---
 
@@ -197,14 +211,6 @@ All requests have been fully tested with Postman.
 - Documentation updated with full endpoint details and example requests/responses
 
 ---
-
-### Deployment
-
-The API is deployed on **Render** and publicly accessible at:
-
-- [https://myflix-api-0vxe.onrender.com](https://myflix-api-0vxe.onrender.com)
-
-For local development, follow the installation steps above.
 
 # Screenshot
 
