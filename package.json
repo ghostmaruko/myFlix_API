@@ -28,6 +28,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "jsdoc": "^4.0.5"
+    "jsdoc": "^4.0.5",
+    "minami": "^1.2.3"
   }
 }
