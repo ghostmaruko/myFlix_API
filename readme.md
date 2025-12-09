@@ -64,7 +64,7 @@ Target users:
 # Backend (Live)
 https://myflix-api-0vxe.onrender.com
 
-> [!Visiting this URL does not display a webpage — it's an API only.]
+> [!NOTE](Visiting this URL does not display a webpage — it's an API only)
 
 # Postman Collection (Public Link)
 (Inserire link dopo averlo generato)
@@ -97,17 +97,7 @@ POST	    |    /login	     |   Login & receive JWT (public)
 
 ### Movies
 
-Method	    |
-|
-|
-|
-|
-|    Endpoint	      |
-|
-|
-|
-|
-|      Auth	                      Description
+Method	        Endpoint	            Auth	                      Description
 GET	            /movies	              ❌ (temporary)	            Get all movies
 GET	            /movies/:title        ✅	                        Get movie by title
 GET	            /genres/:name         ✅	                        Get genre info
