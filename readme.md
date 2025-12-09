@@ -44,7 +44,7 @@ Target users:
 - Input validation (express-validator)
 - CORS enabled
 
---- 
+---
 
 ### Technologies Used
 
@@ -62,22 +62,27 @@ Target users:
 ### 🌐 Live & Documentation Links
 
 # Backend (Live)
+
 https://myflix-api-0vxe.onrender.com
 
-> [!NOTE](Visiting this URL does not display a webpage — it's an API only)
+> [!NOTE]
+>
+> Visiting this URL does not display a webpage — it's an API only
 
 # Postman Collection (Public Link)
+
 (Inserire link dopo averlo generato)
 Example placeholder:
 https://www.postman.com/collections/YOUR_COLLECTION_ID
 
-
 # API Documentation (JSDoc – Minami Theme)
+
 https://ghostmaruko.github.io/movie_api/documentation/
 
 (Questo link funzionerà dopo che generiamo e pubblichiamo la nuova JSDoc)
 
 # GitHub Repository (Backend)
+
 https://github.com/ghostmaruko/movie_api
 
 ---
@@ -89,42 +94,42 @@ Most endpoints require a valid JWT token.
 
 ### Authentication
 
-Method	  |    Endpoint	   |   Notes
-POST	    |    /users	     |   Register (public)
-POST	    |    /login	     |   Login & receive JWT (public)
+Method | Endpoint | Notes
+POST | /users | Register (public)
+POST | /login | Login & receive JWT (public)
 
 ---
 
 ### Movies
 
-Method	        Endpoint	            Auth	                      Description
-GET	            /movies	              ❌ (temporary)	            Get all movies
-GET	            /movies/:title        ✅	                        Get movie by title
-GET	            /genres/:name         ✅	                        Get genre info
-GET	            /directors/:name	    ✅	                        Get director info
+Method Endpoint Auth Description
+GET /movies ❌ (temporary) Get all movies
+GET /movies/:title ✅ Get movie by title
+GET /genres/:name ✅ Get genre info
+GET /directors/:name ✅ Get director info
 
 ---
 
 ### Users
 
- Method	    |      Endpoint	                         |   Auth	        |    Description
-POST	      |     /users/:username/movies/:movieID	 |    ✅	               Add favorite
-DELETE	         /users/:username/movies/:movieID	      ✅	              Remove favorite
-PUT	             /users/:username	                      ✅	              Update user
-DELETE	         /users/:username	                      ✅	              Delete user
+Method | Endpoint | Auth | Description
+POST | /users/:username/movies/:movieID | ✅ Add favorite
+DELETE /users/:username/movies/:movieID ✅ Remove favorite
+PUT /users/:username ✅ Update user
+DELETE /users/:username ✅ Delete user
 
 ---
 
-**Authentication:** 
+**Authentication:**
 All routes (except `POST /users` and `POST /login`) require JWT authentication.
 
-**Authorization:** 
-Passport.js with Local and JWT strategies.  
+**Authorization:**
+Passport.js with Local and JWT strategies.
 
-**Passwords:** 
-Hashed using bcrypt. 
+**Passwords:**
+Hashed using bcrypt.
 
-**Testing:** 
+**Testing:**
 All endpoints tested with Postman.
 
 ---
@@ -164,9 +169,9 @@ To test the backend manually, use Postman with a valid JWT token.
 2. Login via POST /login to receive a JWT token.
 3. In Postman, set Authorization → Bearer Token with the received JWT.
 4. TUse the token to test protected routes like:
-   -  /movies/:title
-   -  /users/:username
-   -  /users/:username/movies/:movieID
+   - /movies/:title
+   - /users/:username
+   - /users/:username/movies/:movieID
 
 All requests have been fully tested with Postman.
 
