@@ -115,10 +115,18 @@ DELETE	          /users/:username	                ✅	              Delete user
 
 ---
 
-**Authentication:** All routes (except `POST /users` and `POST /login`) require JWT authentication.  
-**Authorization:** Passport.js with Local and JWT strategies.  
-**Passwords:** Hashed using bcrypt.  
-**Testing:** All endpoints tested with Postman.
+**Authentication:** 
+All routes (except `POST /users` and `POST /login`) require JWT authentication.
+
+**Authorization:** 
+Passport.js with Local and JWT strategies.  
+
+**Passwords:** 
+Hashed using bcrypt. 
+
+**Testing:** 
+All endpoints tested with Postman.
+
 ---
 
 ## Frontend
@@ -148,6 +156,7 @@ To test the backend manually, use Postman with a valid JWT token.
 
 ⚠️ Important: All protected API endpoints require a JWT token. You cannot directly test them via a browser. Use Postman (or another HTTP client) with the token to access routes like /users, /movies/:title, etc.
 
+---
 
 ## Testing Instruction (Postman):
 
@@ -173,7 +182,7 @@ All requests have been fully tested with Postman.
 
 ---
 
-## Development Notes
+### Development Notes
 
 - Password hashing applied on registration and login
 - Data validation added using `express-validator`
@@ -200,6 +209,6 @@ For local development, follow the installation steps above.
 
 ---
 
-## Author
+### Author
 
 Marco Esu – 2025
