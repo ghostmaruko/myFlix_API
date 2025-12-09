@@ -203,6 +203,15 @@ All protected endpoints require a **JWT token**.
 
 ---
 
+# Postman Collection
+
+Puoi importare questa collection in Postman per testare tutte le API del progetto.
+
+[Import Postman Collection](https://raw.githubusercontent.com/ghostmaruko/movie_api/main/postman_req/myflix_api.postman_collection.json)
+
+
+---
+
 ### Development Notes
 
 - Password hashing applied on registration and login
