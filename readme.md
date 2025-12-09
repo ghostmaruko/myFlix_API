@@ -107,11 +107,12 @@ GET	            /directors/:name	    ✅	                        Get director in
 
 ### Users
 
-Method	          Endpoint	                        Auth	            Description
-POST	            /users/:username/movies/:movieID	✅	              Add favorite
-DELETE	          /users/:username/movies/:movieID	✅	              Remove favorite
-PUT	              /users/:username	                ✅	              Update user
-DELETE	          /users/:username	                ✅	              Delete user
+# Method	          Endpoint	                              Auth	            Description
+
+- POST	           /users/:username/movies/:movieID	      ✅	              Add favorite
+- DELETE	         /users/:username/movies/:movieID	      ✅	              Remove favorite
+- PUT	             /users/:username	                      ✅	              Update user
+- DELETE	         /users/:username	                      ✅	              Delete user
 
 ---
 
