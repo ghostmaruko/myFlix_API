@@ -23,7 +23,7 @@ Target users:
 
 ---
 
-### 🚀 Main Features
+### Main Features
 
 # Movies
 
@@ -139,7 +139,9 @@ All endpoints tested with Postman.
 
 ## Frontend
 
-⚠️ **Note:** This project no longer includes a frontend served via Express.  
+>[!IMPORTANT] 
+>
+>This project no longer includes a frontend served via Express.  
 The frontend has been moved to a separate project built with **React**:  
 [myFlix-client (React Frontend)](https://github.com/ghostmaruko/myFlix_client)
 
