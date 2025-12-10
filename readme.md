@@ -59,67 +59,76 @@ Target users:
 
 ---
 
-### 🌐 Live & Documentation Links
+## Live & Documentation Links
 
-# Backend (Live)
+### Backend (Live)
 
-https://myflix-api-0vxe.onrender.com
+🔗 https://myflix-api-0vxe.onrender.com
 
-> [!IMPORTANT]
->
-> Visiting this URL does not display a webpage — it's an API only
-
-# Postman Collection (Public Link)
-
-(Inserire link dopo averlo generato)
-Example placeholder:
-https://www.postman.com/collections/YOUR_COLLECTION_ID
-
-# API Documentation (JSDoc – Minami Theme)
-
-https://ghostmaruko.github.io/movie_api/documentation/
-
-(Questo link funzionerà dopo che generiamo e pubblichiamo la nuova JSDoc)
-
-# GitHub Repository (Backend)
-
-https://github.com/ghostmaruko/movie_api
+> **Nota:** Questo URL non mostra una pagina web.  
+> È un server API — va usato tramite Postman, curl o via frontend React.
 
 ---
 
-### API Endpoints
+### Postman Collection (Import JSON)
 
-Base URL: https://myflix-api-0vxe.onrender.com
-Most endpoints require a valid JWT token.
+Puoi importare la collection completa direttamente in Postman tramite questo link:
+
+**[Import Postman Collection](https://raw.githubusercontent.com/ghostmaruko/myFlix_API/refs/heads/master/postman_req/myFlix_API.postman_collection2.json)**
+
+Basta aprire Postman → Import → incollare questo URL.
+
+---
+
+### API Documentation (JSDoc – Minami Theme)
+
+🔗 https://ghostmaruko.github.io/movie_api/documentation/
+
+> Funziona solo dopo aver generato e pubblicato correttamente la JSDoc su GitHub Pages.
+
+---
+
+### GitHub Repository (Backend)
+
+🔗 https://github.com/ghostmaruko/movie_api
+
+---
+
+### 🛠 API Endpoints
+
+**Base URL:**  
+https://myflix-api-0vxe.onrender.com
+
+> La maggior parte delle rotte richiede un **token JWT** ottenuto tramite `/login`.
 
 ### Authentication
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/users` | ❌ | Register new user |
-| POST | `/login` | ❌ | Login and receive JWT token |
+| Method | Endpoint | Auth | Description                 |
+| ------ | -------- | ---- | --------------------------- |
+| POST   | `/users` | ❌   | Register new user           |
+| POST   | `/login` | ❌   | Login and receive JWT token |
 
 ---
 
 ### Movies
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| GET | `/movies` | ❌ (temporary) | Get all movies |
-| GET | `/movies/:title` | ✅ | Get movie details by title |
-| GET | `/genres/:name` | ✅ | Get genre information |
-| GET | `/directors/:name` | ✅ | Get director information |
+| Method | Endpoint           | Auth           | Description                |
+| ------ | ------------------ | -------------- | -------------------------- |
+| GET    | `/movies`          | ❌ (temporary) | Get all movies             |
+| GET    | `/movies/:title`   | ✅             | Get movie details by title |
+| GET    | `/genres/:name`    | ✅             | Get genre information      |
+| GET    | `/directors/:name` | ✅             | Get director information   |
 
 ---
 
 ### Users
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| PUT | `/users/:username` | ✅ | Update user profile |
-| DELETE | `/users/:username` | ✅ | Delete user |
-| POST | `/users/:username/movies/:movieID` | ✅ | Add favorite movie |
-| DELETE | `/users/:username/movies/:movieID` | ✅ | Remove favorite movie |
+| Method | Endpoint                           | Auth | Description           |
+| ------ | ---------------------------------- | ---- | --------------------- |
+| PUT    | `/users/:username`                 | ✅   | Update user profile   |
+| DELETE | `/users/:username`                 | ✅   | Delete user           |
+| POST   | `/users/:username/movies/:movieID` | ✅   | Add favorite movie    |
+| DELETE | `/users/:username/movies/:movieID` | ✅   | Remove favorite movie |
 
 ---
 
@@ -139,11 +148,11 @@ All endpoints tested with Postman.
 
 ## Frontend
 
->[!IMPORTANT] 
+> [!IMPORTANT]
 >
->This project no longer includes a frontend served via Express.  
-The frontend has been moved to a separate project built with **React**:  
-[myFlix-client (React Frontend)](https://github.com/ghostmaruko/myFlix_client)
+> This project no longer includes a frontend served via Express.  
+> The frontend has been moved to a separate project built with **React**:  
+> [myFlix-client (React Frontend)](https://github.com/ghostmaruko/myFlix_client)
 
 All API endpoints (e.g., `/users`, `/movies`) are now **exclusively accessed by the frontend React app** or API clients (e.g., Postman, curl).
 
@@ -153,15 +162,15 @@ To test the backend manually, use Postman with a valid JWT token.
 
 ## Project Structure
 
-| Path | Description |
-|---|---|
-| `index.js` | Main server file (Express setup, middleware, routes, DB connection) |
-| `/models` | Mongoose schemas for movies and users |
-| `/routes` | API route definitions |
-| `/controllers` | Logic for API endpoints |
-| `/public` | Static file serving |
-| `/docs` | Generated JSDoc documentation |
-| `package.json` | Dependencies & scripts |
+| Path           | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| `index.js`     | Main server file (Express setup, middleware, routes, DB connection) |
+| `/models`      | Mongoose schemas for movies and users                               |
+| `/routes`      | API route definitions                                               |
+| `/controllers` | Logic for API endpoints                                             |
+| `/public`      | Static file serving                                                 |
+| `/docs`        | Generated JSDoc documentation                                       |
+| `package.json` | Dependencies & scripts                                              |
 
 ---
 
@@ -176,6 +185,7 @@ To test the backend manually, use Postman with a valid JWT token.
 All protected endpoints require a **JWT token**.
 
 ### Steps:
+
 1. **Register a new user**  
    POST `/users`
 2. **Login**  
@@ -191,15 +201,15 @@ All protected endpoints require a **JWT token**.
 
 ## Deployment
 
-| Feature | Status |
-|---|---|
-| MongoDB Atlas | ✅ Connected |
-| Render Deployment | ✅ Live |
-| JWT Authentication | ✅ Functional |
-| Password Hashing | ✅ bcrypt |
-| Data Validation | ✅ express-validator |
-| Static file serving | ✅ Enabled |
-| Postman Testing | ✅ Completed |
+| Feature             | Status               |
+| ------------------- | -------------------- |
+| MongoDB Atlas       | ✅ Connected         |
+| Render Deployment   | ✅ Live              |
+| JWT Authentication  | ✅ Functional        |
+| Password Hashing    | ✅ bcrypt            |
+| Data Validation     | ✅ express-validator |
+| Static file serving | ✅ Enabled           |
+| Postman Testing     | ✅ Completed         |
 
 ---
 
@@ -207,8 +217,7 @@ All protected endpoints require a **JWT token**.
 
 Puoi importare questa collection in Postman per testare tutte le API del progetto.
 
-[Import Postman Collection](https://raw.githubusercontent.com/ghostmaruko/movie_api/main/postman_req/myflix_api.postman_collection.json)
-
+[Import Postman Collection](https://raw.githubusercontent.com/ghostmaruko/myFlix_API/refs/heads/master/postman_req/myFlix_API.postman_collection2.json)
 
 ---
 
