@@ -65,18 +65,18 @@ Target users:
 
 🔗 https://myflix-api-0vxe.onrender.com
 
-> **Nota:** Questo URL non mostra una pagina web.  
-> È un server API — va usato tramite Postman, curl o via frontend React.
+> **Nota:** This URL does not display a webpage.
+> It is an API server — use it through Postman, curl, or your React frontend.
 
 ---
 
 ### Postman Collection (Import JSON)
 
-Puoi importare la collection completa direttamente in Postman tramite questo link:
+You can import the full Postman collection directly using this link
 
 **[Import Postman Collection](https://raw.githubusercontent.com/ghostmaruko/myFlix_API/refs/heads/master/postman_req/myFlix_API.postman_collection2.json)**
 
-Basta aprire Postman → Import → incollare questo URL.
+Just open Postman → Import → Paste this URL.
 
 ---
 
@@ -84,7 +84,7 @@ Basta aprire Postman → Import → incollare questo URL.
 
 🔗 https://ghostmaruko.github.io/movie_api/documentation/
 
-> Funziona solo dopo aver generato e pubblicato correttamente la JSDoc su GitHub Pages.
+> This link works only after generating and publishing the JSDoc to GitHub Pages.
 
 ---
 
@@ -99,7 +99,7 @@ Basta aprire Postman → Import → incollare questo URL.
 **Base URL:**  
 https://myflix-api-0vxe.onrender.com
 
-> La maggior parte delle rotte richiede un **token JWT** ottenuto tramite `/login`.
+> Most routes require a **JWT token**, obtained via the `/login` endpoint.
 
 ### Authentication
 
